@@ -46,9 +46,7 @@ copyright = "2011, Matthew Frazier"
 
 about = {}
 
-with open(
-    os.path.join(os.path.dirname(__file__), "..", "src", "flask_login", "__about__.py")
-) as f:
+with open(os.path.join(os.path.dirname(__file__), "..", "flask_login", "__about__.py")) as f:
     exec(f.read(), about)
 
 # The version info for the project you're documenting, acts as replacement for
@@ -223,9 +221,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ("index", "flask-login", "Flask-Login Documentation", ["Matthew Frazier"], 1)
-]
+man_pages = [("index", "flask-login", "Flask-Login Documentation", ["Matthew Frazier"], 1)]
 
 
 # Example configuration for intersphinx: refer to the Python standard library.

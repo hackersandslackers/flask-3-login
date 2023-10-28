@@ -141,7 +141,6 @@ def unauthorized_handler():
 Documentation for Flask-Login is available on [ReadTheDocs](https://flask-login.readthedocs.io/en/latest/).
 For complete understanding of available configuration, please refer to the [source code](https://github.com/maxcountryman/flask-login).
 
-
 ## Contributing
 
 We welcome contributions! If you would like to hack on Flask-Login, please

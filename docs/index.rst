@@ -645,7 +645,7 @@ signals in your code.
    marked non-fresh or deleted. It receives no additional arguments besides
    the app.
 
-.. _source code: https://github.com/maxcountryman/flask-login/tree/main/src/flask_login
+.. _source code: https://github.com/maxcountryman/flask-login/tree/main/flask_login
 .. _Flask documentation on signals: https://flask.palletsprojects.com/en/latest/signals/
 .. _this Flask Snippet: https://web.archive.org/web/20120517003641/http://flask.pocoo.org/snippets/62/
 .. _Flask Session: https://flask.palletsprojects.com/en/latest/api/#sessions
