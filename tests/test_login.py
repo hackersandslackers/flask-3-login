@@ -2,58 +2,55 @@ import sys
 import unittest
 from collections.abc import Hashable
 from contextlib import contextmanager
-from datetime import datetime
-from datetime import timedelta
-from unittest.mock import ANY
-from unittest.mock import Mock
-from unittest.mock import patch
+from datetime import datetime, timedelta
+from unittest.mock import ANY, Mock, patch
 
-from flask import Blueprint
-from flask import Flask
-from flask import get_flashed_messages
-from flask import Response
-from flask import session
+from flask import Blueprint, Flask, Response, get_flashed_messages, session
 from flask.views import MethodView
-from flask_login import AnonymousUserMixin
-from flask_login import confirm_login
-from flask_login import current_user
-from flask_login import decode_cookie
-from flask_login import encode_cookie
-from flask_login import FlaskLoginClient
-from flask_login import fresh_login_required
-from flask_login import login_fresh
-from flask_login import login_remembered
-from flask_login import login_required
-from flask_login import login_url
-from flask_login import login_user
-from flask_login import LoginManager
-from flask_login import logout_user
-from flask_login import make_next_param
-from flask_login import session_protected
-from flask_login import set_login_view
-from flask_login import user_accessed
-from flask_login import user_loaded_from_cookie
-from flask_login import user_loaded_from_request
-from flask_login import user_logged_in
-from flask_login import user_logged_out
-from flask_login import user_login_confirmed
-from flask_login import user_needs_refresh
-from flask_login import user_unauthorized
-from flask_login import UserMixin
-from flask_login.__about__ import __author__
-from flask_login.__about__ import __author_email__
-from flask_login.__about__ import __copyright__
-from flask_login.__about__ import __description__
-from flask_login.__about__ import __license__
-from flask_login.__about__ import __maintainer__
-from flask_login.__about__ import __title__
-from flask_login.__about__ import __url__
-from flask_login.__about__ import __version__
-from flask_login.__about__ import __version_info__
-from flask_login.utils import _secret_key
-from flask_login.utils import _user_context_processor
 from semantic_version import Version
 from werkzeug.middleware.proxy_fix import ProxyFix
+
+from flask_login import (
+    AnonymousUserMixin,
+    FlaskLoginClient,
+    LoginManager,
+    UserMixin,
+    confirm_login,
+    current_user,
+    decode_cookie,
+    encode_cookie,
+    fresh_login_required,
+    login_fresh,
+    login_remembered,
+    login_required,
+    login_url,
+    login_user,
+    logout_user,
+    make_next_param,
+    session_protected,
+    set_login_view,
+    user_accessed,
+    user_loaded_from_cookie,
+    user_loaded_from_request,
+    user_logged_in,
+    user_logged_out,
+    user_login_confirmed,
+    user_needs_refresh,
+    user_unauthorized,
+)
+from flask_login.__about__ import (
+    __author__,
+    __author_email__,
+    __copyright__,
+    __description__,
+    __license__,
+    __maintainer__,
+    __title__,
+    __url__,
+    __version__,
+    __version_info__,
+)
+from flask_login.utils import _secret_key, _user_context_processor
 
 sys_version = Version(
     major=sys.version_info.major,
@@ -528,7 +525,6 @@ class LoginTestCase(unittest.TestCase):
 
     def test_unauthorized_uses_blueprint_login_view(self):
         with self.app.app_context():
-
             first = Blueprint("first", "first")
             second = Blueprint("second", "second")
 
@@ -567,7 +563,6 @@ class LoginTestCase(unittest.TestCase):
             set_login_view("second_login", blueprint=second)
 
             with self.app.test_client() as c:
-
                 result = c.get("/protected")
                 self.assertEqual(result.status_code, 302)
                 expected = "/app_login?next=%2Fprotected"
@@ -598,7 +593,6 @@ class LoginTestCase(unittest.TestCase):
             set_login_view("app_login")
 
             with self.app.test_client() as c:
-
                 result = c.get("/protected")
                 self.assertEqual(result.status_code, 302)
                 expected = "/app_login?next=%2Fprotected"
@@ -675,18 +669,13 @@ class LoginTestCase(unittest.TestCase):
             c.get("/login-notch-remember")
 
             cookie = c.get_cookie(key=name, domain=domain, path=path)
-            self.assertIsNotNone(
-                cookie, "Custom domain, path and name not found in cookies"
-            )
+            self.assertIsNotNone(cookie, "Custom domain, path and name not found in cookies")
 
             expiration_date = datetime.utcfromtimestamp(cookie.expires.timestamp())
             expected_date = datetime.utcnow() + duration
             difference = expected_date - expiration_date
 
-            fail_msg = (
-                f"The expiration date {expiration_date} was far from"
-                f" the expected {expected_date}"
-            )
+            fail_msg = f"The expiration date {expiration_date} was far from" f" the expected {expected_date}"
             self.assertLess(difference, timedelta(seconds=10), fail_msg)
             self.assertGreater(difference, timedelta(seconds=-10), fail_msg)
 
@@ -701,18 +690,13 @@ class LoginTestCase(unittest.TestCase):
             c.get("/login-notch-remember-custom")
 
             cookie = c.get_cookie(key=name, domain=domain, path=path)
-            self.assertIsNotNone(
-                cookie, "Custom domain, path and name not found in cookies"
-            )
+            self.assertIsNotNone(cookie, "Custom domain, path and name not found in cookies")
 
             expiration_date = datetime.utcfromtimestamp(cookie.expires.timestamp())
             expected_date = datetime.utcnow() + duration
             difference = expected_date - expiration_date
 
-            fail_msg = (
-                f"The expiration date {expiration_date} was far from"
-                f" the expected {expected_date}"
-            )
+            fail_msg = f"The expiration date {expiration_date} was far from" f" the expected {expected_date}"
             self.assertLess(difference, timedelta(seconds=10), fail_msg)
             self.assertGreater(difference, timedelta(seconds=-10), fail_msg)
 
@@ -732,10 +716,7 @@ class LoginTestCase(unittest.TestCase):
             expected_date = datetime.utcnow() + duration
             difference = expected_date - expiration_date
 
-            fail_msg = (
-                f"The expiration date {expiration_date} was far from"
-                f" the expected {expected_date}"
-            )
+            fail_msg = f"The expiration date {expiration_date} was far from" f" the expected {expected_date}"
             self.assertLess(difference, timedelta(seconds=10), fail_msg)
             self.assertGreater(difference, timedelta(seconds=-10), fail_msg)
 
@@ -764,9 +745,7 @@ class LoginTestCase(unittest.TestCase):
                 session["_user_id"] = 2
                 self.login_manager._set_cookie(None)
 
-        expected_exception_message = (
-            "REMEMBER_COOKIE_DURATION must be a datetime.timedelta, instead got: 123"
-        )
+        expected_exception_message = "REMEMBER_COOKIE_DURATION must be a datetime.timedelta, instead got: 123"
         self.assertIn(expected_exception_message, str(cm.exception))
 
     def test_set_cookie_with_invalid_custom_duration_raises_exception(self):
@@ -774,9 +753,7 @@ class LoginTestCase(unittest.TestCase):
             with self.app.test_request_context():
                 login_user(notch, remember=True, duration="123")
 
-        expected_exception_message = (
-            "duration must be a datetime.timedelta, instead got: 123"
-        )
+        expected_exception_message = "duration must be a datetime.timedelta, instead got: 123"
         self.assertIn(expected_exception_message, str(cm.exception))
 
     def test_remember_me_refresh_every_request(self):
@@ -807,9 +784,7 @@ class LoginTestCase(unittest.TestCase):
             with self.app.test_client() as c:
                 c.get("/login-notch-remember")
                 cookie = c.get_cookie(key="remember", domain=domain, path=path)
-                expiration_date_1 = datetime.utcfromtimestamp(
-                    cookie.expires.timestamp()
-                )
+                expiration_date_1 = datetime.utcfromtimestamp(cookie.expires.timestamp())
                 self.assertIsNotNone(expiration_date_1)
 
                 # self._delete_session(c)
@@ -819,9 +794,7 @@ class LoginTestCase(unittest.TestCase):
                 self.assertNotEqual(mock_utcnow1, mock_utcnow2)
                 c.get("/username")
                 cookie = c.get_cookie(key="remember", domain=domain, path=path)
-                expiration_date_2 = datetime.utcfromtimestamp(
-                    cookie.expires.timestamp()
-                )
+                expiration_date_2 = datetime.utcfromtimestamp(cookie.expires.timestamp())
                 self.assertIsNotNone(expiration_date_2)
                 self.assertNotEqual(expiration_date_1, expiration_date_2)
 
@@ -847,9 +820,7 @@ class LoginTestCase(unittest.TestCase):
             c.get("/login-notch", headers=[("X-Forwarded-For", "10.1.1.1")])
             result = c.get("/username", headers=[("X-Forwarded-For", "10.1.1.1")])
             self.assertEqual("Notch", result.data.decode("utf-8"))
-            result = c.get(
-                "/username", headers=[("X-Forwarded-For", "10.1.1.1, 10.1.1.2")]
-            )
+            result = c.get("/username", headers=[("X-Forwarded-For", "10.1.1.1, 10.1.1.2")])
             self.assertEqual("Notch", result.data.decode("utf-8"))
 
     def test_user_loaded_from_cookie_fired(self):
@@ -987,9 +958,7 @@ class LoginTestCase(unittest.TestCase):
     def test_session_not_modified(self):
         with self.app.test_client() as c:
             # Within the request we think we didn't modify the session.
-            self.assertEqual(
-                "modified=False", c.get("/empty_session").data.decode("utf-8")
-            )
+            self.assertEqual("modified=False", c.get("/empty_session").data.decode("utf-8"))
             # But after the request, the session could be modified by the
             # "after_request" handlers that call _update_remember_cookie.
             # Ensure that if nothing changed the session is not modified.
@@ -1389,25 +1358,19 @@ class TestLoginUrlGeneration(unittest.TestCase):
             url = make_next_param("https://localhost/login", "http://localhost/profile")
             self.assertEqual("http://localhost/profile", url)
 
-            url = make_next_param(
-                "http://accounts.localhost/login", "http://localhost/profile"
-            )
+            url = make_next_param("http://accounts.localhost/login", "http://localhost/profile")
             self.assertEqual("http://localhost/profile", url)
 
     def test_login_url_generation(self):
         with self.app.test_request_context():
             PROTECTED = "http://localhost/protected"
 
-            self.assertEqual(
-                "/login?n=%2Fprotected", login_url("/login", PROTECTED, "n")
-            )
+            self.assertEqual("/login?n=%2Fprotected", login_url("/login", PROTECTED, "n"))
 
             url = login_url("/login", PROTECTED)
             self.assertEqual("/login?next=%2Fprotected", url)
 
-            expected = (
-                "https://auth.localhost/login?next=http%3A%2F%2Flocalhost%2Fprotected"
-            )
+            expected = "https://auth.localhost/login?next=http%3A%2F%2Flocalhost%2Fprotected"
             result = login_url("https://auth.localhost/login", PROTECTED)
             self.assertEqual(expected, result)
 
@@ -1419,9 +1382,7 @@ class TestLoginUrlGeneration(unittest.TestCase):
 
     def test_login_url_generation_with_view(self):
         with self.app.test_request_context():
-            self.assertEqual(
-                "/login?next=%2Fprotected", login_url("login", "/protected")
-            )
+            self.assertEqual("/login?next=%2Fprotected", login_url("login", "/protected"))
 
     def test_login_url_no_next_url(self):
         self.assertEqual(login_url("/foo"), "/foo")

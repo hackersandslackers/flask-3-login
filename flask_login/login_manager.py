@@ -1,38 +1,31 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
-from flask import abort
-from flask import current_app
-from flask import flash
-from flask import g
-from flask import redirect
-from flask import request
-from flask import session
+from flask import abort, current_app, flash, g, redirect, request, session
 
-from .config import COOKIE_DURATION
-from .config import COOKIE_HTTPONLY
-from .config import COOKIE_NAME
-from .config import COOKIE_SAMESITE
-from .config import COOKIE_SECURE
-from .config import ID_ATTRIBUTE
-from .config import LOGIN_MESSAGE
-from .config import LOGIN_MESSAGE_CATEGORY
-from .config import REFRESH_MESSAGE
-from .config import REFRESH_MESSAGE_CATEGORY
-from .config import SESSION_KEYS
-from .config import USE_SESSION_FOR_NEXT
+from .config import (
+    COOKIE_DURATION,
+    COOKIE_HTTPONLY,
+    COOKIE_NAME,
+    COOKIE_SAMESITE,
+    COOKIE_SECURE,
+    ID_ATTRIBUTE,
+    LOGIN_MESSAGE,
+    LOGIN_MESSAGE_CATEGORY,
+    REFRESH_MESSAGE,
+    REFRESH_MESSAGE_CATEGORY,
+    SESSION_KEYS,
+    USE_SESSION_FOR_NEXT,
+)
 from .mixins import AnonymousUserMixin
-from .signals import session_protected
-from .signals import user_accessed
-from .signals import user_loaded_from_cookie
-from .signals import user_loaded_from_request
-from .signals import user_needs_refresh
-from .signals import user_unauthorized
-from .utils import _create_identifier
-from .utils import _user_context_processor
-from .utils import decode_cookie
-from .utils import encode_cookie
-from .utils import expand_login_view
+from .signals import (
+    session_protected,
+    user_accessed,
+    user_loaded_from_cookie,
+    user_loaded_from_request,
+    user_needs_refresh,
+    user_unauthorized,
+)
+from .utils import _create_identifier, _user_context_processor, decode_cookie, encode_cookie, expand_login_view
 from .utils import login_url as make_login_url
 from .utils import make_next_param
 
@@ -325,9 +318,7 @@ class LoginManager:
         if user is None:
             config = current_app.config
             cookie_name = config.get("REMEMBER_COOKIE_NAME", COOKIE_NAME)
-            has_cookie = (
-                cookie_name in request.cookies and session.get("_remember") != "clear"
-            )
+            has_cookie = cookie_name in request.cookies and session.get("_remember") != "clear"
             if has_cookie:
                 cookie = request.cookies[cookie_name]
                 user = self._load_user_from_remember_cookie(cookie)
@@ -389,9 +380,7 @@ class LoginManager:
 
     def _update_remember_cookie(self, response):
         # Don't modify the session unless there's something to do.
-        if "_remember" not in session and current_app.config.get(
-            "REMEMBER_COOKIE_REFRESH_EACH_REQUEST"
-        ):
+        if "_remember" not in session and current_app.config.get("REMEMBER_COOKIE_REFRESH_EACH_REQUEST"):
             session["_remember"] = "set"
 
         if "_remember" in session:
@@ -429,10 +418,7 @@ class LoginManager:
         try:
             expires = datetime.utcnow() + duration
         except TypeError as e:
-            raise Exception(
-                "REMEMBER_COOKIE_DURATION must be a datetime.timedelta,"
-                f" instead got: {duration}"
-            ) from e
+            raise Exception("REMEMBER_COOKIE_DURATION must be a datetime.timedelta," f" instead got: {duration}") from e
 
         # actually set it
         response.set_cookie(

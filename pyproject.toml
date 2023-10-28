@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "Flask-Login"
+version = "0.6.3"
+description = "Forked version of Flask-Login to support Flask 3.0."
+authors = ["David Lord <leafstormrush@gmail.com>"]
+maintainers = [
+    "David Lord <leafstormrush@gmail.com>",
+    "Todd Birchard <todd@hackersandslackers.com>",
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/maxcountryman/flask-login/"
+repository = "https://github.com/hackersandslackers/flask-3-login/"
+documentation = "https://flask-login.readthedocs.io/en/latest/"
+keywords = ["Flask", "Flask-Login", "Flask3", "Users", "Tutorial"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+flask = ">=3.0.0"
+werkzeug = ">=3.0.1"
+pytest = "*"
+python-dotenv = "*"
+black = "*"
+isort = "*"
+flake8 = "*"
+
+[tool.poetry.urls]
+issues = "https://github.com/hackersandslackers/flask-3-login/issues"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = "C0103,C0301,W0703,W0621"
+
+[tool.black]
+line-length = 120
