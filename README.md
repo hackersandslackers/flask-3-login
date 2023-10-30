@@ -1,7 +1,7 @@
 # Flask-Login
 
-![Tests](https://github.com/maxcountryman/flask-login/workflows/Tests/badge.svg)
-[![coverage](https://coveralls.io/repos/maxcountryman/flask-login/badge.svg?branch=main&service=github)](https://coveralls.io/github/maxcountryman/flask-login?branch=main)
+![Tests](https://github.com/hackersandslackers/flask-3-login/workflows/Tests/badge.svg)
+[![coverage](https://coveralls.io/repos/hackersandslackers/flask-3-login/badge.svg?branch=main&service=github)](https://coveralls.io/github/maxcountryman/flask-login?branch=main)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
 Flask-Login provides user session management for Flask. It handles the common
@@ -9,7 +9,7 @@ tasks of logging in, logging out, and remembering your users' sessions over
 extended periods of time.
 
 Flask-Login is not bound to any particular database system or permissions
-model. The only requirement is that your user objects implement a few methods,
+model. The only requirement is that your user objects implement a few methods
 and that you provide a callback to the extension capable of loading users from
 their ID.
 
@@ -24,10 +24,10 @@ $ pip install flask-login
 ## Usage
 
 Once installed, the Flask-Login is easy to use. Let's walk through setting up
-a basic application. Also please note that this is a very basic guide: we will
-be taking shortcuts here that you should never take in a real application.
+a basic application. Also, please note that this is a very basic guide: we will
+be taking shortcuts you should never take in a real application.
 
-To begin we'll set up a Flask app:
+To begin, we'll set up a Flask app:
 
 ```python
 import flask
@@ -47,9 +47,9 @@ login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 ```
 
-To keep things simple we're going to use a dictionary to represent a database
+To keep things simple, we will use a dictionary to represent a database
 of users. In a real application, this would be an actual persistence layer.
-However it's important to point out this is a feature of Flask-Login: it
+However, it's important to point out this is a feature of Flask-Login: it
 doesn't care how your data is stored so long as you tell it how to retrieve it!
 
 ```python
@@ -57,8 +57,8 @@ doesn't care how your data is stored so long as you tell it how to retrieve it!
 users = {'foo@bar.tld': {'password': 'secret'}}
 ```
 
-We also need to tell Flask-Login how to load a user from a Flask request and
-from its session. To do this we need to define our user object, a
+We must also tell Flask-Login how to load a user from a Flask request and
+its session. To do this, we must define our user object, a
 `user_loader` callback, and a `request_loader` callback.
 
 ```python
@@ -87,8 +87,8 @@ def request_loader(request):
     return user
 ```
 
-Now we're ready to define our views. We can start with a login view, which will
-populate the session with authentication bits. After that we can define a view
+Now, we're ready to define our views. We can start with a login view, which will
+populate the session with authentication bits. After that, we can define a view
 that requires authentication.
 
 ```python
@@ -119,7 +119,7 @@ def protected():
     return 'Logged in as: ' + flask_login.current_user.id
 ```
 
-Finally we can define a view to clear the session and log users out:
+Finally, we can define a view to clear the session and log users out:
 
 ```python
 @app.route('/logout')
@@ -139,7 +139,7 @@ def unauthorized_handler():
 ```
 
 Documentation for Flask-Login is available on [ReadTheDocs](https://flask-login.readthedocs.io/en/latest/).
-For complete understanding of available configuration, please refer to the [source code](https://github.com/maxcountryman/flask-login).
+For a complete understanding of the available configuration, please refer to the [source code](https://github.com/hackersandslackers/flask-3-login).
 
 ## Contributing
 
