@@ -13,6 +13,17 @@ homepage = "https://github.com/maxcountryman/flask-login/"
 repository = "https://github.com/hackersandslackers/flask-3-login/"
 documentation = "https://flask-login.readthedocs.io/en/latest/"
 keywords = ["Flask", "Flask-Login", "Flask3", "Users", "Tutorial"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"

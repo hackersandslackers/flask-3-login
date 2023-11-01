@@ -7,7 +7,7 @@ Manage $(PROJECT_NAME). Usage:
 
 make install    - Create local virtualenv & install dependencies.
 make deploy     - Set up project & run locally (not suitable to serve `production` applications).
-make update     - Update dependencies via Poetry and output resulting `requirements/dev.txt`.
+make update     - Update dependencies via Poetry and output resulting `./requirements/dev.txt`.
 make format     - Run Python code formatter & sort dependencies.
 make lint       - Check code formatting with flake8.
 make clean      - Remove extraneous compiled files, caches, logs, etc.
@@ -39,7 +39,7 @@ install: env
 update: env
 	$(LOCAL_PYTHON) -m pip install --upgrade pip setuptools wheel && \
 	poetry update && \
-	poetry export -f requirements/dev.txt --output requirements/dev.txt --without-hashes && \
+	poetry export -f ./requirements/dev.txt --output ./requirements/requirements.txt --without-hashes && \
 	echo "Updated dependencies in virtualenv \`${VIRTUAL_ENVIRONMENT}\`";
 
 .PHONY: test
