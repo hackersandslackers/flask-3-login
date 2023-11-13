@@ -29,11 +29,36 @@ classifiers = [
 python = ">=3.10,<4.0"
 flask = ">=3.0.0"
 werkzeug = ">=3.0.1"
-pytest = "*"
 python-dotenv = "*"
 black = "*"
 isort = "*"
 flake8 = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+blinker = "*"
+click = "*"
+coverage = "*"
+asgiref = "*"
+semantic-version = "*"
+sphinx = "*"
+pluggy = "*"
+typing-extensions = "*"
+
+[tool.poetry.group.style.dependencies]
+pre-commit = "*"
+
+[tool.poetry.group.ci-release.dependencies]
+build = "*"
+twine = "*"
+readme-renderer = "*"
+
+[tool.poetry.group.ci-tests.dependencies]
+coveralls = "*"
+filelock = "*"
+pluggy = "*"
+tox = "*"
+pyproject-api = "*"
 
 [tool.poetry.urls]
 issues = "https://github.com/hackersandslackers/flask-3-login/issues"

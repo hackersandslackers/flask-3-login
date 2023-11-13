@@ -32,14 +32,15 @@ $(VIRTUAL_ENV):
 .PHONY: install
 install: env
 	$(LOCAL_PYTHON) -m pip install --upgrade pip setuptools wheel && \
-	$(LOCAL_PYTHON) -m pip install -r requirements/dev.txt && \
+	$(LOCAL_PYTHON) -m pip install -r requirements.txt && \
 	echo Installed dependencies in \`${VIRTUAL_ENV}\`;
 
 .PHONY: update
 update: env
 	$(LOCAL_PYTHON) -m pip install --upgrade pip setuptools wheel && \
+    poetry install --with dev,style,ci-release,ci-tests --sync && \
 	poetry update && \
-	poetry export -f ./requirements/dev.txt --output ./requirements/requirements.txt --without-hashes && \
+	poetry export --output=requirements.txt --without-hashes && \
 	echo "Updated dependencies in virtualenv \`${VIRTUAL_ENVIRONMENT}\`";
 
 .PHONY: test
